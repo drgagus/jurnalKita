@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title><%= process.env.appName %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/logo.png">
+    
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/templatemo.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
+
+</head>
+
+<body>
+    <%- include('./../header/userheader') %>
+
+    <!-- Start Content Page -->
+    <div class="container py-5">
+        <div class="row text-center pt-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="fw-bold text-danger">Journal</h1>
+            </div>
+        </div>
+        
+        <div class="row">
+            <form action="/journal" class="col-md-9 m-auto" method="post" role="form" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="form-group col-md-4 mb-3">
+                        <img src="/thumb/journal/default" class="img-fluid border">
+                        <input type="file" class="form-control mt-1" id="thumb" name="thumb" placeholder="thumb">
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
+                        <select class="form-control mt-2 <% if(error.category_id) { %> is-invalid <% } %>" id="category" name="category_id" >
+                            <option class="" value="">--choose category--</option>
+                            <% categories.forEach(category=>{ %>
+                                <% if(journal.category_id == category.id){ %>
+                                    <option value="<%=  category.id %>" class="" selected><%=  category.title %></option>
+                                <% }else{ %>
+                                    <option value="<%=  category.id %>" class=""><%=  category.title %></option>
+                                <% } %>
+                            <% }) %>
+                        </select>
+                        <input type="text" class="form-control mt-2 <% if(error.title) { %> is-invalid <% } %>" id="category" name="title" placeholder="title" value="<%= journal.title%>">
+                        <input type="date" class="form-control mt-2 <% if(error.dateofjournal) { %> is-invalid <% } %>" id="dateofjournal" name="dateofjournal" placeholder="dateofjournal" value="<%= journal.dateofjournal && journal.dateofjournal.toISOString().split('T')[0] %>">
+                        <input type="text" class="form-control mt-2" id="linkofind" name="linkofind" placeholder="--link indonesian--" >
+                        <input type="text" class="form-control mt-2" id="linkofeng" name="linkofeng" placeholder="--link english--" >
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
+                        <textarea type="text" class="form-control mt-2 <% if(error.abstract) { %> is-invalid <% } %>" id="category" name="abstract" placeholder="abstract" rows="6"><%= journal.abstract %></textarea>
+                        <button type="submit" class="btn btn-primary btn-lg px-3 mt-2">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Start Script -->
+    <script src="/assets/js/jquery-1.11.0.min.js"></script>
+    <script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/templatemo.js"></script>
+    <script src="/assets/js/custom.js"></script>
+    <!-- End Script -->
+</body>
+
+</html>

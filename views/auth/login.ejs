@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>e journal</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/logo.png">
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/templatemo.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
+
+</head>
+
+<body class="bg-light">
+
+    <!-- Start Journals -->
+    <section class="bg-light">
+        <div class="container">
+            <div class="row text-center pt-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="fw-bold text-dark"><a href="/" class="text-decoration-none fw-bold text-dark"><%= process.env.appName %></a></h1>
+                </div>
+            </div>
+            <% if(message){ %><%-  include('./../message/login') %><% } %>
+            <div class="row text-center pt-3">
+                <div class="col-lg-6 m-auto">
+                    <form action="/auth/login" class="col-md-9 m-auto" method="POST" role="form">
+                        <div class="row">
+                            <div class="form-group col-md-12 mb-3">
+                                <input type="text" class="form-control mt-1" id="username" name="username" placeholder="username" required>
+                                <input type="password" class="form-control mt-1" id="password" name="password" placeholder="password" required>
+                                <button type="submit" class="btn btn-primary btn-lg px-3 mt-1">login</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Journals -->
+
+
+    <!-- Start Script -->
+    <script src="/assets/js/jquery-1.11.0.min.js"></script>
+    <script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/templatemo.js"></script>
+    <script src="/assets/js/custom.js"></script>
+    <!-- End Script -->
+
+
+
+</body>
+
+</html>
+
+
+

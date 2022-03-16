@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title><%= process.env.appName %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/logo.png">
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/templatemo.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
+
+</head>
+
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background:rgb(0, 0, 0)">
+        <div class="container">
+          <a class="navbar-brand text-light fw-bold" href="/"><%= process.env.appName %></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            </ul>
+            <form class="d-flex" action="/search" method="GET">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+              <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+    </nav>
+    <!-- Start Journals -->
+    <section class="bg-light">
+        <div class="container">
+            <div class="row text-center py-3">
+                <div class="col-lg-6 m-auto">
+                    <h3 class="text-dark">Search : <span class="text-muted"><%= keyword %></span></h3>
+                </div>
+            </div>
+            <% if(journals){ %>
+                <div class="row">
+                    <% journals.forEach(journal=>{ %>
+                    <div class="col-12 col-md-3 mb-4">
+                        <div class="card h-100">
+                            <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>">
+                                <img src="./thumb/journal/<%= journal.thumb %>" class="card-img-top" alt="...">
+                            </a>
+                            <div class="card-body">
+                                <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>" class="fw-bold text-decoration-none text-dark"><%= journal.title %></a>
+                                <p class="card-text"><%= journal.abstract.substring(0,100) %></p>
+                                <p class="card-text text-muted"><%= journal.dateofjournal.toDateString() %></p>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                </div>
+                <% if(count>0){ %>
+                    <div class="row">
+                        <div class="col-12">
+                            <nav aria-label="..." class="">
+                                <ul class="pagination pagination-md">
+                                    <% for(let p = 1 ; p <= Math.floor(count/limit)+1 ; p++) {%>
+                                <li class="page-item <% if(page == p) { %> active <% } %>" aria-current="page"><a class="page-link" href="?keyword=<%= keyword %>&page=<%= p %>&limit=<%= limit %>"><%= p %></a></li>
+                                <% } %>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                <% } %>
+            <% }else{ %>
+                <%- include('./loading/loadingjournal') %>
+            <% } %>
+        </div>
+    </section>
+    <!-- End Journals -->
+
+    
+    <!-- Start Script -->
+    <script src="/assets/js/jquery-1.11.0.min.js"></script>
+    <script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/templatemo.js"></script>
+    <script src="/assets/js/custom.js"></script>
+    <!-- End Script -->
+</body>
+
+</html>
+
