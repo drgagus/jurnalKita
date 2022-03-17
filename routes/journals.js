@@ -1,6 +1,6 @@
 const express           = require('express')
 const router            = express.Router()
-const dotenv               = require('dotenv')
+const dotenv            = require('dotenv')
 const Category          = require('./../models/category')
 const Journal           = require('./../models/journal')
 const multer            = require('multer')

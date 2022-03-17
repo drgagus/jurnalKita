@@ -3,9 +3,10 @@ const router            = express.Router()
 const Category          = require('./../models/category')
 const Journal           = require('./../models/journal')
 const dotenv            = require('dotenv')
-const middleware        = require('./../middleware/isAuth')
+const isAuth            = require('./../middleware/isAuth')
+const isNotAuth         = require('./../middleware/isNotAuth')
 
-router.get('/', middleware.isNotAuth, async(req,res)=>{
+router.get('/', isNotAuth, async(req,res)=>{
     let page =  parseInt(await req.query.page ? req.query.page : 1)
     let limit =  parseInt(await req.query.limit ? req.query.limit : 4)
     const categories = await Category.find()
@@ -19,7 +20,7 @@ router.get('/', middleware.isNotAuth, async(req,res)=>{
     })
 })
 
-router.get('/menu', middleware.isAuth, async(req,res)=>{
+router.get('/menu', isAuth, async(req,res)=>{
     let page = await parseInt(req.query.page ? req.query.page : 1)
     let limit = await parseInt(req.query.limit ? req.query.limit : 4)
     const categories = await Category.find()
@@ -33,7 +34,7 @@ router.get('/menu', middleware.isAuth, async(req,res)=>{
     })
 })
 
-router.get('/:slugcat', middleware.isNotAuth, async(req,res)=>{
+router.get('/:slugcat', isNotAuth, async(req,res)=>{
     let page = await parseInt(req.query.page ? req.query.page : 1)
     let limit = await parseInt(req.query.limit ? req.query.limit : 4)
     let category = await Category.findOne({slug:req.params.slugcat})
@@ -47,10 +48,10 @@ router.get('/:slugcat', middleware.isNotAuth, async(req,res)=>{
         count:alljournalbycategory.length
     })
 })
-router.get('/:slugcat/:slugjour', middleware.isNotAuth, async(req,res)=>{
+router.get('/:slugcat/:slugjour', isNotAuth, async(req,res)=>{
     let category = await Category.findOne({slug:req.params.slugcat})
     let journal = await Journal.findOne({slug:req.params.slugjour}).populate('category_id').exec()
-    let journals = await Journal.find({category_id: category.id}).limit(8).sort({dateofjournal:-1}).populate('category_id').exec()
+    let journals = await Journal.find({category_id: category.id}).limit(4).sort({dateofjournal:-1}).populate('category_id').exec()
     res.render('journal', {journal:journal, journals:journals})
 })
 
