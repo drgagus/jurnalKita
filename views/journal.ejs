@@ -65,14 +65,14 @@
                                 <div class="row pb-3">
                                     <div class="col d-grid">
                                         <% if(journal.linkofind){ %>
-                                        <a href="<%= journal.linkofind %>" class="btn btn-success btn-lg" target="_blank">Indonesia</a>
+                                        <a href="/<%=journal.category_id.slug%>/<%=journal.slug%>/ind" class="btn btn-success btn-lg">Indonesia</a>
                                         <% }else{ %>
                                         <button class="btn btn-secondary btn-lg">Indonesia</button>
                                         <% } %>
                                     </div>
                                     <div class="col d-grid">
                                         <% if(journal.linkofeng){ %>
-                                        <a href="<%= journal.linkofeng %>" class="btn btn-success btn-lg" target="_blank">English</a>
+                                        <a href="/<%=journal.category_id.slug%>/<%=journal.slug%>/eng" class="btn btn-success btn-lg">English</a>
                                         <% }else{ %>
                                         <button class="btn btn-secondary btn-lg">English</button>
                                         <% } %>

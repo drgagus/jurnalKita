@@ -16,7 +16,7 @@ const PORT              = process.env.PORT || 8000
 const HOST              = process.env.HOST || '127.0.0.1'
 
 dotenv.config()
-mongoose.connect(process.env.dbConnect)
+mongoose.connect(process.env.dbConnect || "mongodb://localhost/journal")
 app.set('view engine', 'ejs')
 app.use(methodOverRide('_method'))
 app.use(express.static('public'))

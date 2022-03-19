@@ -53,6 +53,21 @@ router.get('/:slugcat/:slugjour', isNotAuth, async(req,res)=>{
     let journal = await Journal.findOne({slug:req.params.slugjour}).populate('category_id').exec()
     let journals = await Journal.find({category_id: category.id}).limit(4).sort({dateofjournal:-1}).populate('category_id').exec()
     res.render('journal', {journal:journal, journals:journals})
+    
+})
+
+router.get('/:slugcat/:slugjour/ind', isNotAuth, async(req,res)=>{
+    let category = await Category.findOne({slug:req.params.slugcat})
+    let journal = await Journal.findOne({slug:req.params.slugjour}).populate('category_id').exec()
+    
+    journal && category && category.id==journal.category_id.id && journal.linkofind ? res.render('document', {pdf:journal.linkofind}) : res.render('errors/pagenotfound')
+})
+
+router.get('/:slugcat/:slugjour/eng', isNotAuth, async(req,res)=>{
+    let category = await Category.findOne({slug:req.params.slugcat})
+    let journal = await Journal.findOne({slug:req.params.slugjour}).populate('category_id').exec()
+    
+    journal && category && category.id==journal.category_id.id && journal.linkofeng ? res.render('document', {pdf:journal.linkofeng}) : res.render('errors/pagenotfound')
 })
 
 
