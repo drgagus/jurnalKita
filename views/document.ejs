@@ -16,12 +16,21 @@
             }
             iframe
             {
-                width:100%;height:100%
+                width:100%;height:100%;
+            }
+            a
+            {
+                position:fixed; margin-top:14px ;
+            }
+            img
+            {
+                height:100%; width:100%; background:rgb(99, 98, 98)
             }
     </style>
 </head>
 <body>
     <div id="content">
+        <a href="/<%= category %>/<%= journal %>" class=""><img src="./../../../back.png" alt="" class=""></a>
         <iframe src="<%= pdf %>" allow="autoplay"></iframe>
     </div>
 </body>
