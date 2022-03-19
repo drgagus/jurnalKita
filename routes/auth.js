@@ -6,7 +6,6 @@ const isNotAuth         = require('./../middleware/isNotAuth')
 
 
 dotenv.config()
-
 router.get('/login', isNotAuth, (req,res)=>{
     res.render('auth/login', {message:''})
 })
