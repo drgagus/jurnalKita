@@ -34,6 +34,10 @@ const journalSchema = new mongoose.Schema({
     linkofeng:{
         type: String
     },
+    view:{
+        type: Number,
+        default:0
+    },
     createAt:{
         type: Date,
         required: true,

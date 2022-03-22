@@ -59,7 +59,7 @@
                                         <h6>Date of Journal:</h6>
                                     </li>
                                     <li class="list-inline-item">
-                                        <p class="text-muted"><strong><%= journal.dateofjournal.toDateString()%></strong></p>
+                                        <p class="text-muted"><strong><%= journal.dateofjournal.toDateString().split(' ')[1] %> <%= journal.dateofjournal.toDateString().split(' ')[3] %></strong></p>
                                     </li>
                                 </ul>
                                 <div class="row pb-3">

@@ -36,60 +36,69 @@
             </div>
             <% }) %>
         </div>
+
+        <!-- <div class="row text-center pt-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="fw-bold text-danger">Categories</h1>
+            </div>
+        </div>
+        <div class="row">
+            <% categories.forEach(category=>{ %>
+            <div class="col-12 col-md-3 p-5 mt-3">
+                <a href="/<%= category.slug%>"><img src="/thumb/category/<%= category.thumb%>" class="rounded-circle img-fluid border"></a>
+                <h2 class="h5 text-center mt-3 mb-3"><%= category.title %></h2>
+            </div>
+            <% }) %>
+        </div> -->
+
     </section>
     <!-- End Categories -->
-    
-    <!-- Start Newest Journals -->
-    <section class="bg-light p-3">
+
+
+    <!-- Start Journals -->
+    <section class="bg-light">
         <div class="container">
-            <div class="row p-3">
-                <div class="col-12 text-center">
-                    <h3 class="fw-bold">Newest Journals</h3>
+            <div class="row text-center pt-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="fw-bold text-dark">Journals</h1>
                 </div>
             </div>
-                <div id="carousel-newest-journals">
-                <% newestjournals.forEach(journal=>{ %>
+            <% if(journals){ %>
+                <div class="row py-3">
+                    <% journals.forEach(journal=>{ %>
                     <div class="col-12 col-md-3 mb-4">
                         <div class="card h-100">
                             <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>">
                                 <img src="./thumb/journal/<%= journal.thumb %>" class="card-img-top" alt="...">
                             </a>
-                            <div class="card-body" style="height:150px">
-                                <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>" class="text-decoration-none text-dark"><%= journal.title %></a>
+                            <div class="card-body">
+                                <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>" class="fw-bold text-decoration-none text-dark"><%= journal.title %></a>
+                                <p class="card-text"><%= journal.abstract.substring(0,100) %></p>
+                                <p class="card-text text-muted"><%= journal.dateofjournal.toDateString() %></p>
                             </div>
                         </div>
                     </div>
-                <% }) %>
+                    <% }) %>
                 </div>
-        </div>
-    </section>
-    <!-- End Newest Journals -->
-    
-    <!-- Start Most Viewed Journals -->
-    <section class="p-3">
-        <div class="container">
-            <div class="row p-3">
-                <div class="col-12 text-center">
-                    <h3 class="fw-bold">Most Viewed Journals</h3>
-                </div>
-            </div>
-                <div id="carousel-most-viewed-journals">
-                <% mostviewedjournals.forEach(journal=>{ %>
-                    <div class="col-12 col-md-3 mb-4">
-                        <div class="card h-100">
-                            <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>">
-                                <img src="./thumb/journal/<%= journal.thumb %>" class="card-img-top" alt="...">
-                            </a>
-                            <div class="card-body" style="height:150px">
-                                <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>" class="text-decoration-none text-dark"><%= journal.title %></a>
-                            </div>
+                <% if(count>0){ %>
+                    <div class="row">
+                        <div class="col-12">
+                            <nav aria-label="..." class="">
+                                <ul class="pagination pagination-md">
+                                    <% for(let p = 1 ; p <= Math.floor(count/limit)+1 ; p++) {%>
+                                <li class="page-item <% if(page == p) { %> active <% } %>" aria-current="page"><a class="page-link" href="?page=<%= p %>&limit=<%= limit %>"><%= p %></a></li>
+                                <% } %>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
-                <% }) %>
-                </div>
+                <% } %>
+            <% }else{ %>
+                <%- include('./loading/loadingjournal') %>
+            <% } %>
         </div>
     </section>
-    <!-- End Most Viewed Journals -->
+    <!-- End Journals -->
 
     <%- include('./footer/guestfooter') %>
     
@@ -106,35 +115,6 @@
     <script src="/assets/js/slick.min.js"></script>
     <script>
         $('#carousel-category').slick({
-            infinite: true,
-            arrows: false,
-            slidesToShow: 4,
-            slidesToScroll: 4,
-            dots: true,
-            responsive: [{
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3
-                    }
-                },
-                {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 2
-                    }
-                },
-                {
-                    breakpoint: 480,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 2
-                    }
-                }
-            ]
-        });
-        $('#carousel-newest-journals, #carousel-most-viewed-journals').slick({
             infinite: true,
             arrows: false,
             slidesToShow: 4,

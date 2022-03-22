@@ -39,5 +39,8 @@ app.use('/search', isNotAuth, searchRouter)
 app.use('/journal', isAuth, journalRouter)
 app.use('/category', isAuth, categoryRouter)
 app.use('/', indexRouter)
+app.use('*', (req,res)=>{
+    res.render('errors/pagenotfound')
+})
 
 app.listen(PORT,HOST)

@@ -8,19 +8,20 @@ const isNotAuth         = require('./../middleware/isNotAuth')
 
 dotenv.config()
 router.get('/', isNotAuth, async(req,res)=>{
-    let page =  parseInt(await req.query.page ? req.query.page : 1)
-    let limit =  parseInt(await req.query.limit ? req.query.limit : 4)
     try{
         const categories = await Category.find()
         try{
-            const journals = await Journal.find().skip((page-1)*limit).limit(limit).sort({dateofjournal:-1}).populate('category_id').exec()
-            res.render('index', {
-                categories:categories, 
-                journals:journals, 
-                count:await Journal.count(),
-                limit:limit,
-                page:page
-            })
+            const newestjournals = await Journal.find().limit(8).sort({dateofjournal:-1}).populate('category_id').exec()
+            try{
+                const mostviewedjournals = await Journal.find().limit(8).sort({view:-1}).populate('category_id').exec()
+                res.render('index', {
+                    categories:categories, 
+                    newestjournals:newestjournals,
+                    mostviewedjournals:mostviewedjournals
+                })
+            }catch(e){
+                res.send("please reload your page")
+            }
         }catch(e){
             res.send("please reload your page")
         }
@@ -48,6 +49,7 @@ router.get('/:slugcat', isNotAuth, async(req,res)=>{
     let limit = await parseInt(req.query.limit ? req.query.limit : 4)
     try{
         let category = await Category.findOne({slug:req.params.slugcat})
+        if (!category){return res.render('errors/pagenotfound')}
         try{
             let journals = await Journal.find({category_id:category.id}).skip((page-1)*limit).limit(limit).sort({dateofjournal:-1}).populate('category_id').exec()
             try{
@@ -60,20 +62,22 @@ router.get('/:slugcat', isNotAuth, async(req,res)=>{
                     count:alljournalbycategory.length
                 })
             }catch(e){
-            res.send("please reload your page")
+            res.send("please reload your page3")
             }
         }catch(e){
-            res.send("please reload your page")
+            res.send("please reload your page2")
         }
     }catch(e){
-        res.send("please reload your page")
+        res.send("please reload your page1")
     }
 })
 router.get('/:slugcat/:slugjour', isNotAuth, async(req,res)=>{
     try{
         let category = await Category.findOne({slug:req.params.slugcat})
+        if(!category){ return res.render('errors/pagenotfound')}
         try{
             let journal = await Journal.findOne({slug:req.params.slugjour}).populate('category_id').exec()
+            if(!journal){ return res.render('errors/pagenotfound')}
             try{
                 let journals = await Journal.find({category_id: category.id}).limit(4).sort({dateofjournal:-1}).populate('category_id').exec()
                 res.render('journal', {journal:journal, journals:journals})
@@ -92,9 +96,19 @@ router.get('/:slugcat/:slugjour', isNotAuth, async(req,res)=>{
 router.get('/:slugcat/:slugjour/ind', isNotAuth, async(req,res)=>{
     try{
         let category = await Category.findOne({slug:req.params.slugcat})
+        if (!category){return res.render('errors/pagenotfound')}
         try{
             let journal = await Journal.findOne({slug:req.params.slugjour}).populate('category_id').exec()
-            journal && category && category.id==journal.category_id.id && journal.linkofind ? res.render('document', {pdf:journal.linkofind, category:category.slug, journal:journal.slug}) : res.render('errors/pagenotfound')
+            if (!journal){return res.render('errors/pagenotfound')}
+            if(!category.id==journal.category_id.id){ return res.render('errors/pagenotfound')} 
+            if(!journal.linkofind){ return res.render('errors/pagenotfound')}
+            try{
+                journal.view = journal.view + 1
+                await journal.save()
+                res.render('document', {pdf:journal.linkofind, category:category.slug, journal:journal.slug})
+            }catch(e){
+                res.send("please reload your page")
+            }
         }catch(e){
             res.send("please reload your page")
         }
