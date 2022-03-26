@@ -15,7 +15,7 @@ router.post('/login', isNotAuth, async(req,res)=>{
     if(username.toLowerCase() == String(process.env.user).toLowerCase()){
         if(password.toLowerCase() == String(process.env.pass).toLowerCase()){
             req.session.isAuth = true
-            res.redirect('/menu')
+            res.redirect('/admin')
         }else{
             return res.render('auth/login', {message:'password salah'})
         }

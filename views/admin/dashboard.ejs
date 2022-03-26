@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    <%- include('./header/userheader') %>
+    <%- include('./../header/adminheader') %>
     
     <!-- Start Categories -->
     <section class="container">
@@ -35,8 +35,7 @@
                 <div class="btn-group">
                   <button class="btn dropdown-toggle h5 text-center" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></button>
                   <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item bg-primary" href="/category/<%= category.slug%>/detail">show</a></li>
-                    <li>
+                    <li><a class="dropdown-item bg-info" href="/category/<%= category.slug%>/thumb">thumb</a></li>
                     <li><a class="dropdown-item bg-warning" href="/category/<%= category.slug%>">edit</a></li>
                     <li>
                       <form action="/category/<%= category.slug %>?_method=DELETE" class="" method="post">
@@ -64,13 +63,13 @@
                       <a href="/journal/<%= journal.slug%>/detail">
                           <img src="./thumb/journal/<%= journal.thumb %>" class="card-img-top" alt="...">
                       </a>
-                      <div class="card-body">
-                          <h5 class="fw-bold text-decoration-none text-dark"><%= journal.title %>
+                      <div class="card-body" style="height:145px;overflow:hidden">
+                          <h5 class="text-decoration-none text-dark">
+                            <%= journal.title %>
                             <div class="btn-group">
                               <button class="btn dropdown-toggle h5 text-center" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></button>
                               <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item bg-primary" href="/journal/<%= journal.slug%>/detail">show</a></li>
-                                <li>
+                                <li><a class="dropdown-item bg-info" href="/journal/<%= journal.slug%>/thumb">thumb</a></li>
                                 <li><a class="dropdown-item bg-warning" href="/journal/<%= journal.slug%>">edit</a></li>
                                 <li>
                                   <form action="/journal/<%= journal.slug %>?_method=DELETE" class="" method="post">
@@ -81,6 +80,9 @@
                             </div>
                           </h5>
                       </div>
+                      <div class="text-end text-muted border-none pe-2">
+                        <%= journal.dateofjournal.toDateString().split(' ')[1] %> <%= journal.dateofjournal.toDateString().split(' ')[3] %>
+                    </div>
                   </div>
               </div>
               <% }) %>
@@ -100,7 +102,7 @@
   </section>
   <!-- End Journals -->
 
-  <%- include('./footer/guestfooter') %>
+  <%- include('./../footer/guestfooter') %>
   
     <!-- Start Script -->
     <script src="/assets/js/jquery-1.11.0.min.js"></script>

@@ -37,6 +37,8 @@
                                 <div class="btn-group">
                                     <button class="btn dropdown-toggle h5 text-center" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                     <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
+                                      <li><a class="dropdown-item bg-info" href="/journal/<%= journal.slug%>/thumb">thumb</a></li>
+                                      <li>
                                       <li><a class="dropdown-item bg-warning" href="/journal/<%= journal.slug%>">edit</a></li>
                                       <li>
                                         <form action="/journal/<%= journal.slug %>?_method=DELETE" class="" method="post">
@@ -67,22 +69,23 @@
                                     <p class="text-muted"><strong><%= journal.dateofjournal.toDateString()%></strong></p>
                                 </li>
                             </ul>
-                            <div class="row pb-3">
-                                <div class="col d-grid">
-                                    <% if(journal.linkofind){ %>
-                                    <a href="<%= journal.linkofind %>" class="btn btn-success btn-lg" target="_blank">Indonesia</a>
-                                    <% }else{ %>
-                                    <button class="btn btn-secondary btn-lg">Indonesia</button>
-                                    <% } %>
+                            <ul class="list-inline">
+                                <div class="btn-group">
+                                    <button class="btn btn-outline-dark dropdown-toggle h5 text-center" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">go to journal</button>
+                                    <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
+                                        <% if(journal.linkofind){ %>
+                                            <li><a class="dropdown-item bg-info" href="/journal/<%=journal.slug%>/ind">Indonesia</a></li>
+                                        <% }else{ %>
+                                            <li><button class="dropdown-item btn btn-secondary bg-secondary">Indonesia</button></li>
+                                        <% } %>
+                                        <% if(journal.linkofeng){ %>
+                                            <li><a class="dropdown-item bg-success" href="/journal/<%=journal.slug%>/eng">English</a></li>
+                                        <% }else{ %>
+                                            <li><button class="dropdown-item btn btn-secondary bg-secondary">English</button></li>
+                                        <% } %>
+                                    </ul>
                                 </div>
-                                <div class="col d-grid">
-                                    <% if(journal.linkofeng){ %>
-                                    <a href="<%= journal.linkofeng %>" class="btn btn-success btn-lg" target="_blank">English</a>
-                                    <% }else{ %>
-                                    <button class="btn btn-secondary btn-lg">English</button>
-                                    <% } %>
-                                </div>
-                            </div>
+                            </ul>
                         </div>
                     </div>
                 </div>

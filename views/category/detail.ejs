@@ -20,11 +20,11 @@
 </head>
 
 <body>
-  <%- include('./../header/userheader') %>
+  <%- include('./../header/adminheader') %>
 
     <!-- Start Journal -->
     <section class="bg-light">
-        <div class="container py-5">
+        <div class="container">
             <div class="row text-center py-3">
             <div class="col-lg-6 m-auto">
                     <h1 class="fw-bold text-danger"><%= category.title %></h1>
@@ -42,7 +42,7 @@
                                     <div class="btn-group">
                                       <button class="btn dropdown-toggle h5 text-center" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                       <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item bg-primary" href="/journal/<%= journal.slug%>/detail">show</a></li>
+                                        <li><a class="dropdown-item bg-info" href="/journal/<%= journal.slug%>/thumb">thumb</a></li>
                                         <li>
                                         <li><a class="dropdown-item bg-warning" href="/journal/<%= journal.slug%>">edit</a></li>
                                         <li>
@@ -53,6 +53,9 @@
                                       </ul>
                                     </div>
                                 </h5>
+                            </div>
+                            <div class="text-end text-muted border-none pe-2">
+                              <%= journal.dateofjournal.toDateString().split(' ')[1] %> <%= journal.dateofjournal.toDateString().split(' ')[3] %>
                             </div>
                         </div>
                     </div>

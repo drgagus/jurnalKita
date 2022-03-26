@@ -19,28 +19,30 @@
 
 </head>
 
-<body class="bg-light">
+<body class="">
 
     <!-- Start Journals -->
-    <section class="bg-light">
-        <div class="container">
-            <div class="row text-center pt-3">
-                <div class="col-lg-6 m-auto">
-                    <h1 class="fw-bold text-dark"><a href="/" class="text-decoration-none fw-bold text-dark"><%= process.env.appName %></a></h1>
+    <section class="">
+        <div class="d-flex justify-content-center align-items-center vh-100">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-lg-6 m-auto">
+                        <h1 class="fw-bold"><a href="/" class="text-decoration-none fw-bold"><%= process.env.appName %></a></h1>
+                    </div>
                 </div>
-            </div>
-            <% if(message){ %><%-  include('./../message/login') %><% } %>
-            <div class="row text-center pt-3">
-                <div class="col-lg-6 m-auto">
-                    <form action="/auth/login" class="col-md-9 m-auto" method="POST" role="form">
-                        <div class="row">
-                            <div class="form-group col-md-12 mb-3">
-                                <input type="text" class="form-control mt-1" id="username" name="username" placeholder="username" required>
-                                <input type="password" class="form-control mt-1" id="password" name="password" placeholder="password" required>
-                                <button type="submit" class="btn btn-primary btn-lg px-3 mt-1">login</button>
+                <% if(message){ %><%-  include('./../message/login') %><% } %>
+                <div class="row text-center">
+                    <div class="col-lg-3 m-auto">
+                        <form action="/auth/login" class="col-md-9 m-auto" method="POST" role="form">
+                            <div class="row">
+                                <div class="form-group col-md-12 mb-3">
+                                    <input type="text" class="form-control mt-1" id="username" name="username" placeholder="username" required>
+                                    <input type="password" class="form-control mt-1" id="password" name="password" placeholder="password" required>
+                                    <button type="submit" class="btn btn-primary btn-lg px-3 mt-1">login</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

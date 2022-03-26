@@ -20,22 +20,8 @@
 </head>
 
 <body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background:rgb(0, 0, 0)">
-        <div class="container">
-          <a class="navbar-brand text-light fw-bold" href="/"><%= process.env.appName %></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            </ul>
-            <form class="d-flex" action="/search" method="GET">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
-              <button class="btn btn-outline-light" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-    </nav>
+    <%- include('./../header/guestheader', {action:'/search'}) %>
+
     <!-- Start Journals -->
     <section class="bg-light">
         <div class="container">
@@ -52,10 +38,11 @@
                             <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>">
                                 <img src="./thumb/journal/<%= journal.thumb %>" class="card-img-top" alt="...">
                             </a>
-                            <div class="card-body">
-                                <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>" class="fw-bold text-decoration-none text-dark"><%= journal.title %></a>
-                                <p class="card-text"><%= journal.abstract.substring(0,100) %></p>
-                                <p class="card-text text-muted"><%= journal.dateofjournal.toDateString() %></p>
+                            <div class="card-body" style="height:145px;overflow:hidden">
+                                <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>" class="text-decoration-none text-dark"><%= journal.title %></a>
+                            </div>
+                            <div class="text-end text-muted border-none pe-2">
+                                <%= journal.dateofjournal.toDateString().split(' ')[1] %> <%= journal.dateofjournal.toDateString().split(' ')[3] %>
                             </div>
                         </div>
                     </div>

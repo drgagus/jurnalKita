@@ -20,26 +20,33 @@
 </head>
 
 <body>
-  <%- include('./../header/userheader') %>
+  <%- include('./../header/adminheader') %>
 
     <!-- Start Content Page -->
-    <div class="container py-5">
+    <div class="container">
         <div class="row text-center pt-3">
             <div class="col-lg-6 m-auto">
-                <h1 class="fw-bold text-danger">Category</h1>
+                <h1 class="fw-bold text-danger"><%= category.title %></h1>
             </div>
         </div>
         
         <div class="row">
-            <form action="/category/<%= category.slug %>?_method=PUT" class="col-md-9 m-auto" method="post" role="form" enctype="multipart/form-data">
+            <form action="/category/<%= category.slug %>?_method=PUT" class="col-md-9 m-auto" method="post" role="form">
                 <div class="row">
                     <div class="form-group col-md-3 mb-3">
                         <img src="/thumb/category/<%= category.thumb%>" class="img-fluid border">
-                        <input type="file" class="form-control" id="thumb" name="thumb" placeholder="thumb">
                     </div>
                     <div class="form-group col-md-5 mb-3">
-                        <input type="text" class="form-control mt-1" id="category" name="title" placeholder="category" value="<%= category.title %>">
-                        <button type="submit" class="btn btn-warning btn-lg px-3 mt-1">Save</button>
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="text" class="form-control mt-1 <% if(error) { %> is-invalid <% } %>" id="category" name="title" placeholder="category" value="<%= category.title %>">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-end">
+                                <button type="submit" class="btn btn-warning btn-lg px-3 mt-1">Save</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>

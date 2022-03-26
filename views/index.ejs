@@ -32,7 +32,7 @@
             <% categories.forEach(category=>{ %>
             <div class="p-2 pb-3">
                 <a href="/<%= category.slug%>"><img src="/thumb/category/<%= category.thumb%>" class="rounded-circle img-fluid border"></a>
-                <a href="/<%= category.slug%>" class="text-decoration-none text-dark"><h2 class="h5 text-center mt-3 mb-3"><%= category.title %></h2></a>
+                <a href="/<%= category.slug%>" class="text-decoration-none text-dark"><h2 class="h5 text-center mt-3 mb-3 fw-bold"><%= category.title %></h2></a>
             </div>
             <% }) %>
         </div>
@@ -44,7 +44,9 @@
         <div class="container">
             <div class="row p-3">
                 <div class="col-12 text-center">
-                    <h3 class="fw-bold">Newest Journals</h3>
+                    <a href="/journals/newest" class="text-decoration-none">
+                        <h3 class="fw-bold text-dark">Newest Journals</h3>
+                    </a>
                 </div>
             </div>
                 <div id="carousel-newest-journals">
@@ -54,8 +56,11 @@
                             <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>">
                                 <img src="./thumb/journal/<%= journal.thumb %>" class="card-img-top" alt="...">
                             </a>
-                            <div class="card-body" style="height:150px">
+                            <div class="card-body" style="height:145px;overflow:hidden">
                                 <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>" class="text-decoration-none text-dark"><%= journal.title %></a>
+                            </div>
+                            <div class="text-end text-muted border-none pe-2">
+                                <%= journal.dateofjournal.toDateString().split(' ')[1] %> <%= journal.dateofjournal.toDateString().split(' ')[3] %>
                             </div>
                         </div>
                     </div>
@@ -70,7 +75,9 @@
         <div class="container">
             <div class="row p-3">
                 <div class="col-12 text-center">
-                    <h3 class="fw-bold">Most Viewed Journals</h3>
+                    <a href="/journals/most-viewed" class="text-decoration-none">
+                        <h3 class="fw-bold text-dark">Most Viewed Journals</h3>
+                    </a>
                 </div>
             </div>
                 <div id="carousel-most-viewed-journals">
@@ -80,8 +87,11 @@
                             <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>">
                                 <img src="./thumb/journal/<%= journal.thumb %>" class="card-img-top" alt="...">
                             </a>
-                            <div class="card-body" style="height:150px">
+                            <div class="card-body" style="height:145px;overflow:hidden">
                                 <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>" class="text-decoration-none text-dark"><%= journal.title %></a>
+                            </div>
+                            <div class="text-end text-muted border-none pe-2">
+                                <%= journal.view %> views
                             </div>
                         </div>
                     </div>
@@ -90,6 +100,37 @@
         </div>
     </section>
     <!-- End Most Viewed Journals -->
+    
+    <!-- Start Last Updated Journals -->
+    <section class="bg-light p-3">
+        <div class="container">
+            <div class="row p-3">
+                <div class="col-12 text-center">
+                    <a href="/journals/last-updated" class="text-decoration-none">
+                        <h3 class="fw-bold text-dark">Last Updated Journals</h3>
+                    </a>
+                </div>
+            </div>
+                <div id="carousel-last-updated-journals">
+                <% lastupdatedjournals.forEach(journal=>{ %>
+                    <div class="col-12 col-md-3 mb-4">
+                        <div class="card h-100">
+                            <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>">
+                                <img src="./thumb/journal/<%= journal.thumb %>" class="card-img-top" alt="...">
+                            </a>
+                            <div class="card-body" style="height:145px;overflow:hidden">
+                                <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>" class="text-decoration-none text-dark"><%= journal.title %></a>
+                            </div>
+                            <div class="text-end text-muted border-none pe-2">
+                                <%= Math.ceil((new Date().getTime() - journal.createAt.getTime())/(1000*3600*24)) %> days ago
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+                </div>
+        </div>
+    </section>
+    <!-- End Last Updated Journals -->
 
     <%- include('./footer/guestfooter') %>
     
@@ -134,7 +175,7 @@
                 }
             ]
         });
-        $('#carousel-newest-journals, #carousel-most-viewed-journals').slick({
+        $('#carousel-newest-journals, #carousel-most-viewed-journals, #carousel-last-updated-journals').slick({
             infinite: true,
             arrows: false,
             slidesToShow: 4,

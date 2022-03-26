@@ -62,22 +62,23 @@
                                         <p class="text-muted"><strong><%= journal.dateofjournal.toDateString().split(' ')[1] %> <%= journal.dateofjournal.toDateString().split(' ')[3] %></strong></p>
                                     </li>
                                 </ul>
-                                <div class="row pb-3">
-                                    <div class="col d-grid">
-                                        <% if(journal.linkofind){ %>
-                                        <a href="/<%=journal.category_id.slug%>/<%=journal.slug%>/ind" class="btn btn-success btn-lg">Indonesia</a>
-                                        <% }else{ %>
-                                        <button class="btn btn-secondary btn-lg">Indonesia</button>
-                                        <% } %>
+                                <ul class="list-inline">
+                                    <div class="btn-group">
+                                        <button class="btn btn-outline-dark dropdown-toggle h5 text-center" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">go to journal</button>
+                                        <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
+                                            <% if(journal.linkofind){ %>
+                                                <li><a class="dropdown-item bg-info" href="/<%=journal.category_id.slug%>/<%=journal.slug%>/ind">Indonesia</a></li>
+                                            <% }else{ %>
+                                                <li><button class="dropdown-item btn btn-secondary bg-secondary">Indonesia</button></li>
+                                            <% } %>
+                                            <% if(journal.linkofeng){ %>
+                                                <li><a class="dropdown-item bg-success" href="/<%=journal.category_id.slug%>/<%=journal.slug%>/eng">English</a></li>
+                                            <% }else{ %>
+                                                <li><button class="dropdown-item btn btn-secondary bg-secondary">English</button></li>
+                                            <% } %>
+                                        </ul>
                                     </div>
-                                    <div class="col d-grid">
-                                        <% if(journal.linkofeng){ %>
-                                        <a href="/<%=journal.category_id.slug%>/<%=journal.slug%>/eng" class="btn btn-success btn-lg">English</a>
-                                        <% }else{ %>
-                                        <button class="btn btn-secondary btn-lg">English</button>
-                                        <% } %>
-                                    </div>
-                                </div>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -105,9 +106,11 @@
                                     <img class="card-img rounded-0 img-fluid" src="./../thumb/journal/<%= journal.thumb %>">
                                 </a>
                             </div>
-                            <div class="card-body">
-                                <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>" class="fw-bold text-decoration-none text-dark"><%= journal.title %></a>
-                                <p class="card-text"><%= journal.abstract.substring(0,100) %></p>
+                            <div class="card-body" style="height:145px;overflow:hidden">
+                                <a href="/<%= journal.category_id.slug %>/<%= journal.slug%>" class="text-decoration-none text-dark"><%= journal.title %></a>
+                            </div>
+                            <div class="text-end text-muted border-none pe-2">
+                                <%= journal.dateofjournal.toDateString().split(' ')[1] %> <%= journal.dateofjournal.toDateString().split(' ')[3] %>
                             </div>
                         </div>
                     </div>
