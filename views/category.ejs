@@ -32,19 +32,19 @@
             </div>
             <div class="row text-center pt-3">
                 <div class="col-lg-12 text-end">
-                    <select name="" id="" class="">
+                    <select name="" id="" class="" onchange="location.href=`${value}`">
                         <% categories.forEach(cat=>{ %>
-                            <option value="" class="" <% if(category.title == cat.title){ %>selected<% } %> onclick="location.href='/<%= cat.slug %>'" ><%= cat.title %></option>
+                            <option value="/<%= cat.slug %>" class="" <% if(category.title == cat.title){ %>selected<% } %> onclick="location.href='/<%= cat.slug %>'" ><%= cat.title %></option>
                         <% }) %>
                     </select>
                 </div>
             </div>
             <div class="row text-center pb-3 pt-1">
                 <div class="col-lg-12 text-end">
-                    <select name="" id="" class="">
-                        <option value="" class="" <% if(typejournals == 1){ %>selected<% } %> onclick="location.href='/<%= category.slug %>'" >Newest</option>
-                        <option value="" class="" <% if(typejournals == 2){ %>selected<% } %> onclick="location.href='/<%= category.slug %>/most-viewed'" >Most Viewed</option>
-                        <option value="" class="" <% if(typejournals == 3){ %>selected<% } %> onclick="location.href='/<%= category.slug %>/last-updated'" >Last Updated</option>
+                    <select name="journal" id="" class="" onchange="location.href=`${value}`">
+                        <option value="/<%= category.slug %>" class="" <% if(typejournals == 1){ %>selected<% } %> >Newest</option>
+                        <option value="/<%= category.slug %>/most-viewed" class="" <% if(typejournals == 2){ %>selected<% } %> >Most Viewed</option>
+                        <option value="/<%= category.slug %>/last-updated" class="" <% if(typejournals == 3){ %>selected<% } %> >Last Updated</option>
                     </select>
                 </div>
             </div>
