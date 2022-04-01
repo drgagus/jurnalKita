@@ -10,17 +10,25 @@ router.get('/login', isNotAuth, (req,res)=>{
     res.render('auth/login', {message:''})
 })
 router.post('/login', isNotAuth, async(req,res)=>{
-    const username = await req.body.username
-    const password = await req.body.password
-    if(username.toLowerCase() == String(process.env.user).toLowerCase()){
-        if(password.toLowerCase() == String(process.env.pass).toLowerCase()){
-            req.session.isAuth = true
-            res.redirect('/admin')
+    const username = req.body.username
+    const password = req.body.password
+    try{
+        if (await username.toLowerCase() == String(process.env.user).toLowerCase()){
+            try{
+                if(await password.toLowerCase() == String(process.env.pass).toLowerCase()){
+                    req.session.isAuth = true
+                    res.redirect('/admin')
+                }else{
+                    return res.render('auth/login', {message:'password salah'})
+                }
+            }catch(e){
+                return res.send("please reload your page")
+            }
         }else{
-            return res.render('auth/login', {message:'password salah'})
+            return res.render('auth/login', {message: 'username salah'})
         }
-    }else{
-        return res.render('auth/login', {message: 'username salah'})
+    }catch(e){
+        return res.send("please reload your page")
     }
 })
 router.delete('/logout', isAuth, (req,res)=>{
